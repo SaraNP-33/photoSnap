@@ -1,15 +1,41 @@
 import React, {useState} from 'react';
-
+import {validateEmail} from '../../utils/helpers';
 
 function ContactForm(){
 
     const [formState, setFormState]=useState({name:'', email:'',message:''})
     const {name, email, message}= formState;
+    const [errorMessage, setErrorMessage] = useState('');
 
     function handleChange(e){
+        //adding validation before the syncing of the form data
+        if (e.target.name === 'email') {
+            const isValid = validateEmail(e.target.value);
+            console.log(isValid);
+            // isValid conditional statement
+            if (!isValid) {
+                setErrorMessage('Your email is invalid.');
+              } else {
+                setErrorMessage('');
+              }
+          }  //adding an else statement to target the message and the name as well so we cannot 
+            //submit without these fields being filled
+          else {
+            if (!e.target.value.length) {
+              setErrorMessage(`${e.target.name} is required.`);
+            } else {
+              setErrorMessage('');
+            }
+          }
         //the e.target.name refers to name attribute of the form element. The [] is used around it
         //to allow to create dynamic property names
+        //wrapping in in a conditional
+        if(!errorMessage){
         setFormState({...formState, [e.target.name]:e.target.value})
+        }
+        
+        console.log('errorMessage', errorMessage);
+        
     }
     console.log(formState);
 
