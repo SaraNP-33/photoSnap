@@ -103,13 +103,20 @@ function PhotoList({category}){
       ]);
       const currentPhotos = photos.filter((photo) => photo.category === category);
 
+      //useState to manage modal and track what photo has been open
+      const [currentPhoto, setCurrentPhoto] = useState();
+
+      //Manage when Modal is opened or closed
+      const [isModalOpen, setIsModalOpen] = useState(false);
+
       const toggleModal = (image, i) => {
-        // current photo
+        setCurrentPhoto({...image, index: i});
+        setIsModalOpen(true);
       }
 
     return(
         <div>
-          <Modal/>
+         {isModalOpen &&  <Modal currentPhoto = {currentPhoto}/>}
             <div className="flex-row">
                 {currentPhotos.map((image, i)=>(
             <img
