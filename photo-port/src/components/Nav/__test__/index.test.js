@@ -15,6 +15,8 @@ const categories = [
   ]
   const mockCurrentCategory = jest.fn();
   const mockSetCurrentCategory = jest.fn();
+  const mockContactSelected = jest.fn();
+  const mockSetContactSelected = jest.fn();
 
 
 describe('NavComponent',()=>{
@@ -24,6 +26,8 @@ describe('NavComponent',()=>{
             categories={categories}
             setCurrentCategory={mockSetCurrentCategory}
             currentCategory={mockCurrentCategory}
+            contactSelected={mockContactSelected}
+            setContactSelected={mockSetContactSelected}
         />)
     });
 
@@ -33,6 +37,9 @@ describe('NavComponent',()=>{
             categories={categories}
             setCurrentCategory={mockSetCurrentCategory}
             currentCategory={mockCurrentCategory}
+            contactSelected={mockContactSelected}
+            setContactSelected={mockSetContactSelected}
+            
         />)
 
         //assert value comparison
@@ -50,6 +57,8 @@ describe('emoji is visible',() =>{
             categories={categories}
             setCurrentCategory={mockSetCurrentCategory}
             currentCategory={mockCurrentCategory}
+            contactSelected={mockContactSelected}
+            setContactSelected={mockSetContactSelected}
         />);
 
      //Assert -camera is the aria-label, we can also query the element by its aria-label
@@ -67,6 +76,8 @@ describe('links are visible',()=>{
             categories={categories}
             setCurrentCategory={mockSetCurrentCategory}
             currentCategory={mockCurrentCategory}
+            contactSelected={mockContactSelected}
+            setContactSelected={mockSetContactSelected}
         />)
 
         //Assert
