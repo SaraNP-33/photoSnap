@@ -3,20 +3,37 @@ import { render, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Nav from '..';
 
+
 // to ensure that after each cleanup there isn't any leftover memory
 //that could give false results
 //global function from Jest
 afterEach(cleanup);
 
+//add this so the test can handle the props we passed on the Nav
+const categories = [
+    { name: 'portraits', description: 'Portraits of people in my life' }
+  ]
+  const mockCurrentCategory = jest.fn();
+  const mockSetCurrentCategory = jest.fn();
+
+
 describe('NavComponent',()=>{
     //baseline test
     it('renders',()=>{
-        render(<Nav/>)
+        render(<Nav
+            categories={categories}
+            setCurrentCategory={mockSetCurrentCategory}
+            currentCategory={mockCurrentCategory}
+        />)
     });
 
     //snapshot test
     it('matches snapshot', ()=>{
-        const {asFragment} = render(<Nav/>)
+        const {asFragment} = render(<Nav
+            categories={categories}
+            setCurrentCategory={mockSetCurrentCategory}
+            currentCategory={mockCurrentCategory}
+        />)
 
         //assert value comparison
         expect(asFragment()).toMatchSnapshot();
@@ -29,7 +46,11 @@ describe('emoji is visible',() =>{
     //Arrange
     it('inserts emoji into the h2',()=>{
         //query to return the element containing the emoji
-        const{getByLabelText}= render(<Nav/>);
+        const{getByLabelText}= render(<Nav
+            categories={categories}
+            setCurrentCategory={mockSetCurrentCategory}
+            currentCategory={mockCurrentCategory}
+        />);
 
      //Assert -camera is the aria-label, we can also query the element by its aria-label
     expect(getByLabelText('camera')).toHaveTextContent('📸');
@@ -42,7 +63,11 @@ describe('links are visible',()=>{
     //verify if links are bein inserted in the <a> tags
     it('inserts text into the links', ()=>{
         //Arrange
-        const {getByTestId} = render(<Nav/>)
+        const {getByTestId} = render(<Nav
+            categories={categories}
+            setCurrentCategory={mockSetCurrentCategory}
+            currentCategory={mockCurrentCategory}
+        />)
 
         //Assert
         expect(getByTestId('link')).toHaveTextContent('Oh Snap!');
@@ -50,3 +75,4 @@ describe('links are visible',()=>{
 
     })
 })
+
